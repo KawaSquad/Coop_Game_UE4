@@ -28,8 +28,13 @@ protected:
 	void LookUp(float value);
 	void LookRight(float value);
 
+	void BeginCrouch();
+	void EndCrouch();
 
+	
+	UPROPERTY(VisibleAnywhere,BlueprintReadOnly,Category = "Components")
 	USpringArmComponent* mSpringArmComp;
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Components")
 	UCameraComponent* mCameraComp;
 
 public:	

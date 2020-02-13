@@ -12,8 +12,9 @@ ASCharacter::ASCharacter()
 	PrimaryActorTick.bCanEverTick = true;
 
 	mSpringArmComp = CreateDefaultSubobject<USpringArmComponent>(TEXT("SpringArm"));
+	mSpringArmComp->SetupAttachment(RootComponent);
+	mSpringArmComp->bUsePawnControlRotation = true;
 	mCameraComp = CreateDefaultSubobject<UCameraComponent>(TEXT("Camera"));
-
 	mCameraComp->SetupAttachment(mSpringArmComp);
 }
 
@@ -50,6 +51,17 @@ void ASCharacter::LookRight(float value)
 	AddControllerYawInput(value);
 }
 
+void ASCharacter::BeginCrouch()
+{
+	Crouch();
+}
+
+void ASCharacter::EndCrouch()
+{
+	UnCrouch();
+}
+
+
 // Called to bind functionality to input
 void ASCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 {
@@ -61,5 +73,9 @@ void ASCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputComponen
 	PlayerInputComponent->BindAxis("LookUp", this, &ASCharacter::LookUp);
 	PlayerInputComponent->BindAxis("LookRight", this, &ASCharacter::LookRight);
 
+	PlayerInputComponent->BindAction("Crouch", IE_Pressed, this, &ASCharacter::BeginCrouch);
+	PlayerInputComponent->BindAction("Crouch", IE_Released, this, &ASCharacter::EndCrouch);
+
+	PlayerInputComponent->BindAction("Jump", IE_Pressed, this, &ASCharacter::Jump);
 }
 
