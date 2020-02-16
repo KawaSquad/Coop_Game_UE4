@@ -62,6 +62,19 @@ void ASCharacter::EndCrouch()
 }
 
 
+void ASCharacter::Fire()
+{
+	/*
+	AActor * myOwner = GetOwner();
+	if (myOwner)
+	{
+
+		FHitResult hitResult;
+//		GetWorld()->LineTraceSingleByChannel(hitResult, GetActorLocation(), GetActorLocation() + GetActorForwardVector(), ECollisionEnabled.QueryAndPhysics, CollisionQue)
+	}
+	*/
+}
+
 // Called to bind functionality to input
 void ASCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 {
@@ -77,5 +90,17 @@ void ASCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputComponen
 	PlayerInputComponent->BindAction("Crouch", IE_Released, this, &ASCharacter::EndCrouch);
 
 	PlayerInputComponent->BindAction("Jump", IE_Pressed, this, &ASCharacter::Jump);
+	PlayerInputComponent->BindAction("Fire", IE_Pressed, this, &ASCharacter::Fire);
+
+}
+
+FVector ASCharacter::GetPawnViewLocation() const
+{
+	if (mCameraComp)
+	{
+		return mCameraComp->GetComponentLocation();
+	}
+
+	return Super::GetPawnViewLocation();
 }
 

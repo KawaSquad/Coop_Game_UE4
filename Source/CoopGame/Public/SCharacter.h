@@ -31,6 +31,8 @@ protected:
 	void BeginCrouch();
 	void EndCrouch();
 
+	void Fire();
+
 	
 	UPROPERTY(VisibleAnywhere,BlueprintReadOnly,Category = "Components")
 	USpringArmComponent* mSpringArmComp;
@@ -43,5 +45,7 @@ public:
 
 	// Called to bind functionality to input
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
+
+	virtual FVector GetPawnViewLocation()const override;
 
 };
